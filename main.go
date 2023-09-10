@@ -30,7 +30,16 @@ func main() {
 
 		tmpl.Execute(w, films)
 	}
+
+	addFilm := func(w http.ResponseWriter, r *http.Request) {
+
+		title := r.PostFormValue("title")
+		director := r.PostFormValue("director")
+		fmt.Println(title, director)
+	}
+
 	http.HandleFunc("/", h1)
+	http.HandleFunc("/add-film", addFilm)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
