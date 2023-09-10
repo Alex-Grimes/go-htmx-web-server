@@ -35,11 +35,13 @@ func main() {
 
 		title := r.PostFormValue("title")
 		director := r.PostFormValue("director")
-		fmt.Println(title, director)
+		htmlStr := fmt.Sprintf("<li class='list-group-item bg-primary text-white'>%s - %s</li>", title, director)
+		tmpl, _ := template.New("t").Parse(htmlStr)
+		tmpl.Execute(w, nil)
 	}
 
 	http.HandleFunc("/", h1)
-	http.HandleFunc("/add-film", addFilm)
+	http.HandleFunc("/add-film/", addFilm)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
