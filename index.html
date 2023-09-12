@@ -18,12 +18,12 @@
   <body>
     <div class="row mt-4 g-4 mx-4">
       <div class="col-8">
-        <h1 class="mb-4">Film List</h1>
+        <h1 class="mb-4">Todo List</h1>
 
-        <ul class="list-group fs-5 me-5" id="film-list">
-          {{ range .Films }} {{ block "film-list-element" .}}
+        <ul class="list-group fs-5 me-5" id="todo-list">
+          {{ range .Todos }} {{ block "todo-list-element" .}}
           <li class="list-group-item bg-primary text-white">
-            {{ .Title }} - {{ .Director }}
+            {{ .Title }} - {{ .Description }}
           </li>
           {{ end }} {{ end }}
         </ul>
@@ -32,27 +32,27 @@
         <h1 class="mb-4">Add Film</h1>
 
         <form
-          hx-post="/add-film/"
-          hx-target="#film-list"
+          hx-post="/add-todo/"
+          hx-target="#todo-list"
           hx-swap="beforeend"
           hx-indicator="#spinner"
         >
           <div class="mb-2">
-            <label for="film-title">Title</label>
+            <label for="todo-title">Title</label>
             <input
               type="text"
               name="title"
               class="form-control"
-              id="film-title"
+              id="todo-title"
             />
           </div>
           <div class="mb-3">
-            <label for="film-director">Director</label>
+            <label for="film-director">Description</label>
             <input
               type="text"
               name="director"
               class="form-control"
-              id="film-director"
+              id="todo-description"
             />
           </div>
 

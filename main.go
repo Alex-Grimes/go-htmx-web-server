@@ -8,9 +8,9 @@ import (
 	"time"
 )
 
-type Film struct {
-	Title    string
-	Director string
+type Todo struct {
+	Title       string
+	Description string
 }
 
 func main() {
@@ -20,29 +20,29 @@ func main() {
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
 
-		films := map[string][]Film{
-			"Films": {
-				{Title: "Casablanca", Director: "Michael Curtiz"},
-				{Title: "Cool Hand Luke", Director: "Stuart Rosenberg"},
-				{Title: "Bullitt", Director: "Peter Yates"},
-				{Title: "The French Connection", Director: "William Friedkin"},
+		todos := map[string][]Todo{
+			"Todos": {
+				{Title: "Walk The Dog", Description: "Take the dog for a walk"},
+				{Title: "Walk The Dog", Description: "Take the dog for a walk"},
+				{Title: "Walk The Dog", Description: "Take the dog for a walk"},
+				{Title: "Walk The Dog", Description: "Take the dog for a walk"},
 			},
 		}
 
-		tmpl.Execute(w, films)
+		tmpl.Execute(w, todos)
 	}
 
-	addFilm := func(w http.ResponseWriter, r *http.Request) {
+	addTodo := func(w http.ResponseWriter, r *http.Request) {
 		time.Sleep(4 * time.Second)
 		title := r.PostFormValue("title")
-		director := r.PostFormValue("director")
+		description := r.PostFormValue("description")
 		tmpl := template.Must(template.ParseFiles("index.html"))
-		tmpl.ExecuteTemplate(w, "film-list-elemet", Film{Title: title, Director: director})
+		tmpl.ExecuteTemplate(w, "film-list-elemet", Todo{Title: title, Description: description})
 
 	}
 
 	http.HandleFunc("/", h1)
-	http.HandleFunc("/add-film/", addFilm)
+	http.HandleFunc("/add-film/", addTodo)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
