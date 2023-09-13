@@ -37,7 +37,14 @@ func main() {
 		title := r.PostFormValue("title")
 		description := r.PostFormValue("description")
 		tmpl := template.Must(template.ParseFiles("index.html"))
-		tmpl.ExecuteTemplate(w, "film-list-elemet", Todo{Title: title, Description: description})
+		tmpl.ExecuteTemplate(w, "todo-list-elemet", Todo{Title: title, Description: description})
+
+	}
+
+	deleteTodo := func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(4 * time.Second)
+		tmpl := template.Must(template.ParseFiles("index.html"))
+		tmpl.ExecuteTemplate(w, "todo-list-elemet", Todo{Title: "", Description: ""})
 
 	}
 
