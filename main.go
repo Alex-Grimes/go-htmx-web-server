@@ -48,6 +48,14 @@ func main() {
 
 	}
 
+	updateTodo := func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(4 * time.Second)
+		title := r.PostFormValue("title")
+		description := r.PostFormValue("description")
+		tmpl := template.Must(template.ParseFiles("index.html"))
+		tmpl.ExecuteTemplate(w, "todo-list-elemet", Todo{Title: title, Description: description})
+	}
+
 	http.HandleFunc("/", h1)
 	http.HandleFunc("/add-film/", addTodo)
 
